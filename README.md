@@ -143,7 +143,7 @@ If you'd rather clone first and run the script directly, pass the channel as a f
 
 ### WatchTower comes with it
 
-[WatchTower](https://github.com/amirfish1/watchtower) (`wt`) is CCC's queue
+[WatchTower](https://github.com/mddeff/outboard) (`wt`) is CCC's queue
 engine, not an optional add-on — it owns ticket lifecycle, worker dispatch,
 plan-to-fleet import, and delivery receipts. Every install path installs it:
 the `curl` and PowerShell installers do it up front, and `run.sh` bootstraps it

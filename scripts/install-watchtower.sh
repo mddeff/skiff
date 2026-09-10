@@ -34,9 +34,9 @@
 #   CCC_WATCHTOWER_STATE_DIR        where the marker files live
 #   CCC_SKIP_WATCHTOWER_DAEMON=1    install, but do not run `wt start`
 
-WATCHTOWER_REPO_URL="${WATCHTOWER_REPO_URL:-https://github.com/amirfish1/watchtower}"
+WATCHTOWER_REPO_URL="${WATCHTOWER_REPO_URL:-https://github.com/mddeff/outboard}"
 WATCHTOWER_INSTALL_DIR="${WATCHTOWER_INSTALL_DIR:-$HOME/.ccc/watchtower}"
-WATCHTOWER_TARBALL_URL="${WATCHTOWER_TARBALL_URL:-https://github.com/amirfish1/watchtower/archive/refs/heads/main.tar.gz}"
+WATCHTOWER_TARBALL_URL="${WATCHTOWER_TARBALL_URL:-https://github.com/mddeff/outboard/archive/refs/heads/main.tar.gz}"
 WATCHTOWER_PYPI_NAME="watchtower-cli"
 WT_PYTHON="${CCC_PYTHON:-python3}"
 WT_STATE_DIR="${CCC_WATCHTOWER_STATE_DIR:-$HOME/.claude/command-center}"

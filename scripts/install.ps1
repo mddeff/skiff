@@ -14,9 +14,9 @@ $ErrorActionPreference = "Stop"
 
 $RepoUrl = "https://github.com/mddeff/skiff"
 $InstallDir = Join-Path $env:USERPROFILE ".ccc\claude-command-center"
-$WatchtowerRepoUrl = "https://github.com/amirfish1/watchtower"
+$WatchtowerRepoUrl = "https://github.com/mddeff/outboard"
 $WatchtowerInstallDir = Join-Path $env:USERPROFILE ".ccc\watchtower"
-$WatchtowerTarballUrl = "https://github.com/amirfish1/watchtower/archive/refs/heads/main.tar.gz"
+$WatchtowerTarballUrl = "https://github.com/mddeff/outboard/archive/refs/heads/main.tar.gz"
 $WatchtowerPypiName = "watchtower-cli"
 $SourceFile = Join-Path $env:USERPROFILE ".claude\command-center\install-source"
 $ValidChannels = @("readme", "landing-hero", "hn", "ph", "devto", "yt", "gh-trending", "dmg", "unknown")
