@@ -631,10 +631,16 @@ See [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 ## License
 
-[MIT](LICENSE) © 2026 Amir Fish
+[MIT](LICENSE) © 2026 Mike Deffenbaugh
 
 ## Acknowledgments
 
 Built on top of [Claude Code](https://docs.claude.com/en/docs/claude-code).
 The `gh` CLI and Vercel CLI are optional integrations but do most of the
 heavy lifting where they're used.
+
+---
+
+Based on [Claude Command Center](https://github.com/amirfish1/claude-command-center)
+by Amir Fish, used under the MIT License — see
+[THIRD_PARTY_NOTICES/fork.md](THIRD_PARTY_NOTICES/fork.md).
