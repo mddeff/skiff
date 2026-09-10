@@ -8,8 +8,21 @@ import unittest
 
 PROJECT_ROOT = pathlib.Path(__file__).resolve().parents[1]
 
+# CONTRIBUTING.md is explicit: this project keeps a zero-dependency policy
+# (no package.json, no requirements.txt, no build step) for anything that
+# ships. The root package.json this test needs is a deliberately gitignored,
+# developer-local-only scaffold for running this one Puppeteer-based check
+# by hand — it was never meant to exist in CI, so this must skip cleanly
+# when it isn't there rather than fail the build.
+_HAS_PUPPETEER = (PROJECT_ROOT / "node_modules" / "puppeteer").is_dir()
+
 
 class TestLiveWordRevealOrder(unittest.TestCase):
+    @unittest.skipUnless(
+        _HAS_PUPPETEER,
+        "node_modules/puppeteer not installed (dev-local-only dependency, "
+        "see CONTRIBUTING.md's zero-dependency policy) — skipping",
+    )
     def test_inline_code_keeps_document_order_during_reveal(self):
         """Code chips must not reveal before prose that precedes them."""
         node_program = textwrap.dedent(

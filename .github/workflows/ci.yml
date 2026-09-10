@@ -57,18 +57,6 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      # Node 20 LTS, not whatever's newest: puppeteer@21/yargs@17 (a test-only
-      # dependency for tests/test_live_word_reveal_order.py) break under very
-      # new Node via a require()/CJS-ESM interop change — confirmed by
-      # reproducing the exact failure on a newer Node and fixing it by
-      # pinning back to 20, with no code change needed on the JS side.
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-      - name: Install JS deps and cache the headless browser
-        run: |
-          npm install
-          npx puppeteer browsers install chrome-headless-shell
       - name: Install pytest and run tests
         run: |
           python -m pip install pytest
