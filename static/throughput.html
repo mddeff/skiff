@@ -535,7 +535,7 @@
     line-height: 1.45;
     min-width: 0;
   }
-  .weekly-sub-line { overflow-wrap: anywhere; }
+  .weekly-sub-line { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .weekly-sub-line + .weekly-sub-line { margin-top: 2px; color: var(--text); }
   .weekly-reset-schedule {
     grid-column: 1 / -1;

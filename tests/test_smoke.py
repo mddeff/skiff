@@ -12593,10 +12593,19 @@ class TestRepoContextHelpers(unittest.TestCase):
 
     def test_codex_app_server_falls_back_to_stdio_when_managed_fails(self):
         server = self.server
-        proc = mock.Mock()
+        # MagicMock (not plain Mock): _ensure_codex_app_server() calls
+        # _codex_app_server_reap_stray_children(), which shells out via
+        # subprocess.check_output(["ps", ...]) before the stdio spawn below.
+        # Patching server.subprocess.Popen replaces Popen for that "ps" call
+        # too (it's the same stdlib subprocess module), and check_output's
+        # internal `with Popen(...) as process:` needs the context-manager
+        # protocol -- a plain Mock doesn't support it.
+        proc = mock.MagicMock()
         proc.poll.return_value = None
         proc.stdin = mock.Mock()
         proc.stdout = []
+        proc.__enter__.return_value = proc
+        proc.communicate.return_value = ("", "")
 
         class FakeThread:
             def __init__(self, *args, **kwargs):

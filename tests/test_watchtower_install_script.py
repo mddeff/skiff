@@ -362,7 +362,7 @@ class TestInstallChain(WatchtowerInstallHarness):
     def test_total_failure_warns_loudly_and_backs_off_for_a_day(self):
         env = {
             "WT_FAKE_GIT_CLONE_RC": "1",
-            "WT_FAKE_PIP_FAIL": "watchtower",  # matches every candidate target
+            "WT_FAKE_PIP_FAIL": "watchtower outboard",  # matches every candidate target
         }
         result = self.run_script(env_extra=env)
         self.assertIn("could not install WatchTower", result.stdout)

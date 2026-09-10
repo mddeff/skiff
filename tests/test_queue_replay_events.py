@@ -7,6 +7,7 @@ time-ordered with a correct per-queue open-depth fold.
 """
 import importlib
 import sys
+from datetime import datetime, timedelta, timezone
 
 
 def _load_server():
@@ -14,27 +15,39 @@ def _load_server():
     return importlib.import_module("server")
 
 
+def _iso(base, minutes):
+    return (base + timedelta(minutes=minutes)).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+# Anchor fixture timestamps to "now" (minus a small, fixed offset) rather than
+# a hardcoded calendar date: _queue_replay_events_uncached() drops events
+# older than _QUEUE_REPLAY_MAX_LOOKBACK_S (14 days), so a fixed past date
+# eventually ages out of that window and the test starts asserting on an
+# empty (correctly-filtered) event list. Only the relative deltas between
+# created/claimed/closed below matter for the depth-fold assertions.
+_BASE = datetime.now(timezone.utc).replace(microsecond=0) - timedelta(hours=2)
+
 # Synthetic durable ticket items — same shape ux_fixes_queue / watchtower.queue
 # persist (ref/queue/status/created_at/claimed_at/closed_at).
 _FAKE_ITEMS = [
     {
         "ref": "DEMO-1", "queue": "DEMO", "project": "DEMO", "status": "closed",
         "note": "first ticket", "claimed_by": "demo-aaa",
-        "created_at": "2026-07-16T10:00:00Z",
-        "claimed_at": "2026-07-16T10:05:00Z",
-        "closed_at": "2026-07-16T10:20:00Z",
+        "created_at": _iso(_BASE, 0),
+        "claimed_at": _iso(_BASE, 5),
+        "closed_at": _iso(_BASE, 20),
     },
     {
         "ref": "DEMO-2", "queue": "DEMO", "project": "DEMO", "status": "in_progress",
         "note": "second ticket", "claimed_by": "demo-bbb",
-        "created_at": "2026-07-16T10:10:00Z",
-        "claimed_at": "2026-07-16T10:12:00Z",
+        "created_at": _iso(_BASE, 10),
+        "claimed_at": _iso(_BASE, 12),
         "closed_at": None,
     },
     {
         "ref": "OTHER-9", "queue": "OTHER", "project": "OTHER", "status": "open",
         "note": "other queue ticket", "claimed_by": "",
-        "created_at": "2026-07-16T10:15:00Z",
+        "created_at": _iso(_BASE, 15),
         "claimed_at": None,
         "closed_at": None,
     },

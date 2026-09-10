@@ -3893,14 +3893,17 @@ def _repo_kind_for_path(path_str):
                 return "dev_test"
         except (OSError, ValueError):
             pass
-    for part in p.parts:
-        lowered = part.lower()
-        if lowered in _DEV_TEST_NAME_SEGMENTS:
+    # Only the repo directory's own name is considered here, not its
+    # ancestors. Checking every path segment would misclassify any repo
+    # that merely happens to live under a generically-named directory
+    # (e.g. /tmp/..., /home/testuser/..., ~/dev/...).
+    lowered = p.name.lower()
+    if lowered in _DEV_TEST_NAME_SEGMENTS:
+        return "dev_test"
+    # Also match compound names like my-app-test or test_fixtures.
+    for token in re.split(r"[-_.]", lowered):
+        if token in _DEV_TEST_NAME_SEGMENTS:
             return "dev_test"
-        # Also match compound names like my-app-test or test_fixtures.
-        for token in re.split(r"[-_.]", lowered):
-            if token in _DEV_TEST_NAME_SEGMENTS:
-                return "dev_test"
     return "production"
 
 
@@ -3945,6 +3948,13 @@ def _compute_repo_usage_signals(repo_paths):
         }
 
     if not repo_paths or not PROJECTS_ROOT.is_dir():
+        # Same shape as the populated path below: sessions sets are only
+        # ever empty here (no projects root to scan), but must still be
+        # counts, not raw sets, or /api/repo/list fails to JSON-serialize
+        # on a fresh install with no ~/.claude/projects yet.
+        for p in repo_paths:
+            for window in ("d7", "d30", "all"):
+                signals[p]["signals"][window]["sessions"] = 0
         return signals
 
     # Map project dirs back to repo paths.
@@ -24192,7 +24202,8 @@ def _codex_app_server_track_thread_health(method, thread_id, response):
     _CODEX_APP_SERVER_FALSE_MISSES += 1
     if _CODEX_APP_SERVER_FALSE_MISSES >= _CODEX_APP_SERVER_FALSE_MISS_LIMIT:
         _CODEX_APP_SERVER_FALSE_MISSES = 0
-        _log_codex_app_server(
+        _log_activity(
+            "app-server", "RECYCLE",
             f"{_CODEX_APP_SERVER_FALSE_MISS_LIMIT} verified"
             " false 'thread not found' misses with rollouts on disk;"
             " recycling app-server child"

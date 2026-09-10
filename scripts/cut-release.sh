@@ -107,8 +107,8 @@ fi
 
 # ── 3. Version bump (lockstep) ──────────────────────────────────────────────
 step "3/9  Bump version in pyproject.toml + server.py"
-run "sed -i '' 's/^version = \".*\"/version = \"${VERSION}\"/' pyproject.toml"
-run "sed -i '' 's/^__version__ = \".*\"/__version__ = \"${VERSION}\"/' server.py"
+run "sed -i.bak 's/^version = \".*\"/version = \"${VERSION}\"/' pyproject.toml && rm -f pyproject.toml.bak"
+run "sed -i.bak 's/^__version__ = \".*\"/__version__ = \"${VERSION}\"/' server.py && rm -f server.py.bak"
 if [ "$DRY_RUN" = 0 ]; then
   grep -q "version = \"${VERSION}\"" pyproject.toml && grep -q "__version__ = \"${VERSION}\"" server.py \
     || { echo "${RED}version bump verification failed${NC}" >&2; exit 1; }
@@ -172,8 +172,8 @@ if [ "$SKIP_BREW" = 0 ]; then
         warn "tarball not ready yet (attempt $i); retrying in 5s"; sleep 5
       done
       [ ${#SHA} -eq 64 ] || { echo "${RED}could not fetch tarball sha256${NC}" >&2; exit 1; }
-      sed -i '' -E "s#archive/refs/tags/v[0-9.]+\.tar\.gz#archive/refs/tags/v${VERSION}.tar.gz#" "${BREW_TAP}/Formula/ccc.rb"
-      sed -i '' -E "s/^([[:space:]]*sha256 \")[a-f0-9]{64}(\")/\1${SHA}\2/" "${BREW_TAP}/Formula/ccc.rb"
+      sed -i.bak -E "s#archive/refs/tags/v[0-9.]+\.tar\.gz#archive/refs/tags/v${VERSION}.tar.gz#" "${BREW_TAP}/Formula/ccc.rb" && rm -f "${BREW_TAP}/Formula/ccc.rb.bak"
+      sed -i.bak -E "s/^([[:space:]]*sha256 \")[a-f0-9]{64}(\")/\1${SHA}\2/" "${BREW_TAP}/Formula/ccc.rb" && rm -f "${BREW_TAP}/Formula/ccc.rb.bak"
       grep -q "$SHA" "${BREW_TAP}/Formula/ccc.rb" || { echo "${RED}brew sha256 update failed${NC}" >&2; exit 1; }
       if ! ( cd "$BREW_TAP" && git add Formula/ccc.rb && git commit -q -m "ccc ${VERSION}" && git push origin HEAD ); then
         echo "${RED}failed to publish Homebrew formula; release is incomplete${NC}" >&2
