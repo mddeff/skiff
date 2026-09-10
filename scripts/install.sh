@@ -140,7 +140,9 @@ require_git() {
 sync_repo() {
   if [ -d "$INSTALL_DIR/.git" ]; then
     printf 'install: updating existing checkout at %s\n' "$INSTALL_DIR"
-    git -C "$INSTALL_DIR" pull --ff-only
+    if ! git -C "$INSTALL_DIR" pull --ff-only; then
+      err "could not update ${INSTALL_DIR} (offline, or the checkout isn't fast-forwardable) — continuing with the existing checkout as-is"
+    fi
     return
   fi
 
