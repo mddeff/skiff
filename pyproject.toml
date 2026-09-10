@@ -38,9 +38,9 @@ dependencies = []
 acp = ["agent-client-protocol>=0.10"]
 
 [project.urls]
-Homepage = "https://github.com/amirfish1/claude-command-center"
-Repository = "https://github.com/amirfish1/claude-command-center"
-Issues = "https://github.com/amirfish1/claude-command-center/issues"
+Homepage = "https://github.com/mddeff/skiff"
+Repository = "https://github.com/mddeff/skiff"
+Issues = "https://github.com/mddeff/skiff/issues"
 
 [project.scripts]
 claude-command-center = "server:main"

@@ -2,7 +2,7 @@
 # Claude Command Center one-command installer.
 #
 # Usage:
-#   curl -fsSL https://raw.githubusercontent.com/amirfish1/claude-command-center/main/scripts/install.sh | CCC_FROM=hn bash
+#   curl -fsSL https://raw.githubusercontent.com/mddeff/skiff/main/scripts/install.sh | CCC_FROM=hn bash
 #   curl -fsSL .../install.sh | bash               # channel defaults to unknown
 #   ./install.sh --from=readme                     # direct invocation after git clone
 #
@@ -17,7 +17,7 @@
 
 set -euo pipefail
 
-REPO_URL="${CCC_REPO_URL:-https://github.com/amirfish1/claude-command-center}"
+REPO_URL="${CCC_REPO_URL:-https://github.com/mddeff/skiff}"
 INSTALL_DIR="${CCC_INSTALL_DIR:-$HOME/.ccc/claude-command-center}"
 PORT="${PORT:-8090}"
 DASHBOARD_URL="http://localhost:${PORT}"

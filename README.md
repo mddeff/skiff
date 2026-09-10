@@ -15,21 +15,11 @@ One local dashboard that attaches to every **Claude Code**, **Codex**, **Cursor*
 Install with curl:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/amirfish1/claude-command-center/main/scripts/install.sh | CCC_FROM=readme bash
-```
-
-With Homebrew:
-
-```bash
-brew tap amirfish1/ccc
-brew install ccc
-ccc
+curl -fsSL https://raw.githubusercontent.com/mddeff/skiff/main/scripts/install.sh | CCC_FROM=readme bash
 ```
 
 Or download the macOS DMG and drag `CCC.app` to Applications:
-[github.com/amirfish1/claude-command-center/releases/latest](https://github.com/amirfish1/claude-command-center/releases/latest)
-
-Try the read-only demo first: [ccc.amirfish.ai/demo](https://ccc.amirfish.ai/demo/) (or [amirfish1.github.io/claude-command-center/demo](https://amirfish1.github.io/claude-command-center/demo/)) - full kanban with seeded fake data, no install required.
+[github.com/mddeff/skiff/releases/latest](https://github.com/mddeff/skiff/releases/latest)
 
 ## See CCC at work
 
@@ -119,16 +109,7 @@ The whole point is the first row: the moment you touch a terminal, a tool that o
 - **2026-05-19**: Static GitHub Pages demo with seeded mock data (no install required). ([#49](https://github.com/amirfish1/claude-command-center/issues/49))
 - **2026-05-18**: Local macOS `say` text-to-speech button on conversations.
 
-[![Star History Chart](https://api.star-history.com/svg?repos=amirfish1/claude-command-center&type=Date)](https://star-history.com/#amirfish1/claude-command-center&Date)
-
-> **If you install it, I'd love to hear how.** Drop a ⭐, open an issue with
-> what worked or what broke, or just say hi. This is a one-person project
-> built around a specific workflow. Outside feedback is the only way I know
-> how widely it lands. [@amirfish1](https://github.com/amirfish1)
-
 ## Quickstart
-
-**Try the demo:** [ccc.amirfish.ai/demo](https://ccc.amirfish.ai/demo/): read-only kanban with seeded fake data, no install required.
 
 Requirements: Git and Python 3.9+. Install at least one supported agent CLI to
 launch sessions: [Claude Code](https://docs.claude.com/en/docs/claude-code),
@@ -141,23 +122,14 @@ the best route if you want the Linux service path.
 **curl**: clones into `~/.ccc/claude-command-center` and runs in foreground. Re-running does a `git pull`.
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/amirfish1/claude-command-center/main/scripts/install.sh | CCC_FROM=readme bash
+curl -fsSL https://raw.githubusercontent.com/mddeff/skiff/main/scripts/install.sh | CCC_FROM=readme bash
 ```
 
 **Windows PowerShell**: clones into `%USERPROFILE%\.ccc\claude-command-center`
 and runs in foreground. Re-running does a `git pull`.
 
 ```powershell
-irm https://raw.githubusercontent.com/amirfish1/claude-command-center/main/scripts/install.ps1 | iex
-```
-
-**Homebrew** — installs into the Cellar, puts `ccc` on `PATH`, pins a brew-managed Python. Upgrade via `brew upgrade ccc`.
-
-```bash
-brew tap amirfish1/ccc
-brew install ccc
-ccc                              # foreground
-brew services start ccc          # or run as a brew-managed background service
+irm https://raw.githubusercontent.com/mddeff/skiff/main/scripts/install.ps1 | iex
 ```
 
 **DMG** — drag the app to Applications and double-click to launch. On first
@@ -165,7 +137,7 @@ launch, the signed and notarized app installs its local source into
 `~/.ccc/claude-command-center`, shows progress, and opens the dashboard when its
 loopback server is ready. Installation errors include the real log plus Retry,
 Open Log, and Quit actions. CCC does not automate Terminal or request macOS
-Automation access. Download the [latest release](https://github.com/amirfish1/claude-command-center/releases/latest).
+Automation access. Download the [latest release](https://github.com/mddeff/skiff/releases/latest).
 
 If you'd rather clone first and run the script directly, pass the channel as a flag instead: `./scripts/install.sh --from=readme`.
 
@@ -200,8 +172,8 @@ the installer prints the directory to add.
 ### From source
 
 ```bash
-git clone https://github.com/amirfish1/claude-command-center
-cd claude-command-center
+git clone https://github.com/mddeff/skiff
+cd skiff
 
 # Try it. Runs in the foreground until Ctrl-C / terminal close
 ./run.sh
@@ -234,8 +206,8 @@ native folder picker, Finder reveal, desktop deep links) are hidden on Windows
 the same way they are on Linux.
 
 ```powershell
-git clone https://github.com/amirfish1/claude-command-center
-cd claude-command-center
+git clone https://github.com/mddeff/skiff
+cd skiff
 
 # Try it. Runs in the foreground until Ctrl-C / terminal close
 .\run.ps1
@@ -269,8 +241,8 @@ WSL2. Install Python 3, git, and your agent CLIs inside the WSL distro, then
 open `http://localhost:8090` from the Windows browser after `./run.sh` starts.
 
 ```bash
-git clone https://github.com/amirfish1/claude-command-center
-cd claude-command-center
+git clone https://github.com/mddeff/skiff
+cd skiff
 
 # Try it in the foreground
 ./run.sh
@@ -464,7 +436,7 @@ has not emitted usage yet.
 ## Works with your skills
 
 CCC does not replace the Claude Code skill packs you already run. It gives them
-a fleet. Full write-up: [docs/skills-ecosystem.html](https://ccc.amirfish.ai/skills-ecosystem.html)
+a fleet. Full write-up: [docs/skills-ecosystem.html](docs/skills-ecosystem.html)
 and the honest [inventory](docs/skills-ecosystem-inventory.md).
 
 - **Superpowers subagents surface on your board.** When a superpowers skill fans

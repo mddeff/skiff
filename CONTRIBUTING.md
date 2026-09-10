@@ -15,8 +15,8 @@ documentation, and assets.
 ## Running locally
 
 ```bash
-git clone https://github.com/amirfish1/claude-command-center
-cd claude-command-center
+git clone https://github.com/mddeff/skiff
+cd skiff
 
 # Point it at any repo you want the UI to watch.
 CCC_WATCH_REPO=~/some/project ./run.sh

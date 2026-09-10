@@ -1,7 +1,7 @@
 # Claude Command Center one-command installer for native Windows PowerShell.
 #
 # Usage:
-#   irm https://raw.githubusercontent.com/amirfish1/claude-command-center/main/scripts/install.ps1 | iex
+#   irm https://raw.githubusercontent.com/mddeff/skiff/main/scripts/install.ps1 | iex
 #   .\scripts\install.ps1 -From readme
 
 [CmdletBinding()]
@@ -12,7 +12,7 @@ param(
 
 $ErrorActionPreference = "Stop"
 
-$RepoUrl = "https://github.com/amirfish1/claude-command-center"
+$RepoUrl = "https://github.com/mddeff/skiff"
 $InstallDir = Join-Path $env:USERPROFILE ".ccc\claude-command-center"
 $WatchtowerRepoUrl = "https://github.com/amirfish1/watchtower"
 $WatchtowerInstallDir = Join-Path $env:USERPROFILE ".ccc\watchtower"

@@ -162,7 +162,7 @@ class TestInstallScript(unittest.TestCase):
 
 
 class TestInstallBehavior(unittest.TestCase):
-    PUBLIC_REPO_URL = "https://github.com/amirfish1/claude-command-center"
+    PUBLIC_REPO_URL = "https://github.com/mddeff/skiff"
 
     def test_app_mode_is_explicit(self):
         result = _run_install_script_function(
